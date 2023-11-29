@@ -33,14 +33,14 @@ optk-download -d ./data
 Use the following commands for training:
 
 ```bash
-python src/train.py`
+python src/train.py
 ```
 
 ### Testing
 Obtain the final prediction results:
 
 ```bash
-python src/ensemble_mean.py`
+python src/ensemble_mean.py
 ```
 
 In order to get the results in the table below, you need to submit the generated **submission.zip** file to the [online review](https://codalab.lisn.upsaclay.fr/competitions/9904?secret_key=8e28481e-5fcd-4394-8a19-6a61099017d4#participate).
