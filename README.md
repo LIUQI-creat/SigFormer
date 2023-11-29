@@ -24,22 +24,28 @@ To use this source code, you need Python3.8+ and a few python3 packages:
 ## Data
 Please download the OpenPack dataset use:
 
-`optk-download -d ./data`
+```bash
+optk-download -d ./data
+```
 
 ## Train and Test
 ### Training
 Use the following commands for training:
 
-`src/train.py`
+```bash
+python src/train.py`
+```
 
 ### Testing
 Obtain the final prediction results:
 
-`src/ensemble_mean.py`
+```bash
+python src/ensemble_mean.py`
+```
 
 In order to get the results in the table below, you need to submit the generated **submission.zip** file to the [online review](https://codalab.lisn.upsaclay.fr/competitions/9904?secret_key=8e28481e-5fcd-4394-8a19-6a61099017d4#participate).
 
-Our submitted file is provided in [baiduyun, passcode:ubfo](https://pan.baidu.com/s/1rEhY-KX2OVShseJeek12bw?pwd=ubfo)
+Our submitted file is provided in [baiduyun, passcode:ubfo](https://pan.baidu.com/s/1rEhY-KX2OVShseJeek12bw?pwd=ubfo).
 
 ## Main results
 | **OpenPack**  | U0104 | U0108 | U0110 | U0203 | U0204 | U0207 | ALL |
