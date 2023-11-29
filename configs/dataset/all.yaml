@@ -1,0 +1,6 @@
+defaults:
+  - annotation: activity-1s
+  - stream: all # set filename that you created in the previous step. 
+  - split: openpack-challenge-2022
+  - classes: OPENPACK_OPERATIONS
+name: "all" # set dataset config name. This value will be included in the log directory path.

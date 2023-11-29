@@ -1,0 +1,13 @@
+defaults:
+  - atr-qags
+  - _self_
+name: atr-acc-all # Set data stream name
+super_stream: atr-qags
+devices: # Add sensor nodes to here.
+  - atr01
+  - atr02
+  - atr03
+  - atr04
+acc: true
+gyro: false # If you want to use gyro data as well as acc, please set true.
+quat: false

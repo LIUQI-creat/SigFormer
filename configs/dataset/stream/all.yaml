@@ -1,0 +1,136 @@
+# schema: "AllConfig"
+name: "all_imu_keypoint"
+super_stream: "None"
+
+clip_base_ts: "keypoint"
+
+path_imu:
+  dir: "${path.openpack.rootdir}/${user.name}/atr/${device}"
+  fname: "${session}.csv"
+frame_rate_imu: 30
+devices:
+  - 'atr01'
+  - 'atr02'
+  - 'atr03'
+  - 'atr04'
+acc: True
+gyro: False
+quat: False
+imu_dim: 12
+min_value_imu_acc: -4
+max_value_imu_acc: 4
+min_value_imu_gyro: -2000
+max_value_imu_gyro: 2000
+
+path_keypoint: 
+  dir: "${path.openpack.rootdir}/${user.name}/kinect/${..category}/${..model}/single"
+  fname: "${session}.json"
+frame_rate_keypoint: 15
+category: "2d-kpt"
+model: "mmpose-hrnet-w48-posetrack18-384x288-posewarper-stage2"
+nodes: {
+    0: "nose",
+    1: "left_eye",
+    2: "right_eye",
+    3: "left_ear",
+    4: "right_ear",
+    5: "left_shoulder",
+    6: "right_shoulder",
+    7: "left_elbow",
+    8: "right_elbow",
+    9: "left_wrist",
+    10: "right_wrist",
+    11: "left_hip",
+    12: "right_hip",
+    13: "left_knee",
+    14: "right_knee",
+    15: "left_ankle",
+    16: "right_ankle",
+}
+keypoint_dim: 34
+min_value_keypoint: 0
+max_value_keypoint: 1280
+
+path_e4acc:
+  dir: "${path.openpack.rootdir}/${user.name}/e4/${device}/acc"
+  fname: "${session}.csv"
+frame_rate_e4acc: 32
+devices_e4acc:
+  - 'e401'
+  - 'e402'
+e4acc_dim: 6
+min_value_e4acc: -0.204
+max_value_e4acc: 0.204
+
+bbox_dim: 4
+min_value_bbox: 0
+max_value_bbox: 1280
+
+path_e4bvp: 
+  dir: "${path.openpack.rootdir}/${user.name}/e4/${device}/bvp"
+  fname: "${session}.csv"
+frame_rate_e4bvp: 64
+devices_e4bvp:
+  - 'e401'
+  - 'e402'
+path_e4eda: 
+  dir: "${path.openpack.rootdir}/${user.name}/e4/${device}/eda"
+  fname: "${session}.csv"
+frame_rate_e4eda: 4
+devices_e4eda:
+  - 'e401'
+  - 'e402'
+path_e4temp: 
+  dir: "${path.openpack.rootdir}/${user.name}/e4/${device}/temp"
+  fname: "${session}.csv"
+frame_rate_e4temp: 4
+devices_e4temp:
+  - 'e401'
+  - 'e402'
+path_ht: 
+  dir: "${path.openpack.rootdir}/${user.name}/system/ht"
+  fname: "${session}.csv"
+frame_rate_ht: -1
+path_order: 
+  dir: "${path.openpack.rootdir}/${user.name}/system/order-sheet/"
+  fname: "${session}.csv"
+frame_rate_order: -1
+path_printer: 
+  dir: "${path.openpack.rootdir}/${user.name}/system/printer"
+  fname: "${session}.csv"
+frame_rate_printer: -1
+
+path_kinect_depth: 
+  dir: "${path.openpack.rootdir}/${user.name}/kinect/depth/frames_resize224"
+  fname: "${session}.csv"
+frame_rate_kinect_depth: 15
+# size_kinect_depth: 64
+kinect_depth_dim: 4096
+min_value_kinect_depth: 0
+max_value_kinect_depth: 13000
+mean_image_kinect_depth:
+  dir: "${path.openpack.rootdir}/mean_image/kinect_depth"
+  fname: "split${dataset.k_fold}.png"
+
+path_rs02_depth: 
+  dir: "${path.openpack.rootdir}/${user.name}/rs02/depth/frames_resize224"
+  fname: "${session}.csv"
+frame_rate_rs02_depth: 7
+# size_rs02_depth: 64
+rs02_depth_dim: 12288
+mean_image_rs02_depth:
+  dir: "${path.openpack.rootdir}/mean_image/rs02_depth"
+  fname: "split${dataset.k_fold}.png"
+
+path_kinect_feature: 
+  dir: "/workspace/kinect_feature/${cnn_feature.issue}/split${dataset.k_fold}/${user.name}/"
+  fname: "${session}.csv"
+path_kinect_feature_all: 
+  dir: "/workspace/kinect_feature/${cnn_feature.issue}/split${dataset.k_fold}/${user.name}/${session}"
+  unixtime_fname: "all_unixtime.npy"
+  feat_fname: "all_feat.npy"
+frame_rate_kinect_feature: 15
+kinect_feature_dim: 2048
+path_mean_image_kinect_feature:
+  dir: "/workspace/kinect_feature/${cnn_feature.issue}/split${dataset.k_fold}/"
+  fname: "mean_feat.npy"

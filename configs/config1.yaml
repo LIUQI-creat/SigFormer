@@ -1,0 +1,151 @@
+defaults:
+  - dataset: all
+  - override hydra/hydra_logging: none
+  - override hydra/job_logging: none
+  - _self_
+datarootdir: "/data"
+issue: "${model.name}-seed${seed}-d${model.depth}-h${model.heads}-np${model.num_patches}-pe${model.use_pe}-\
+timestep${model.time_step_width}-\
+  bs${train.batch_size}-lr${train.optimizer.lr}-\
+  labelsm${train.label_smoothing}-\
+  mixup${train.dataaug.mixup_alpha}_${train.dataaug.mixup_p}-\
+  shuffle${train.dataaug.shuffle_alpha}_${train.dataaug.shuffle_p}-\
+  w_kappa_loss${loss.w_kappa_loss}-\
+  boundary_loss${loss.boundary}-\
+  boundary_threshold${model.threshold_boundary}\
+  "
+
+hydra:
+  run:
+    dir: ${path.logdir.rootdir}
+  job:
+    chdir: true
+
+wandb:
+  project: openpack_newSplits
+debug: false
+mode: "test"
+seed: 65
+model:
+  name: "SigFormer"  
+
+  dim: -1
+  depth: 6
+  heads: 20
+  dim_head: 64
+  mlp_dim: 2048
+  emb_dropout: 0.1
+  dropout: 0.1
+  use_pe: true
+  embedding_method: "linear"
+  threshold_boundary: 0.85
+  
+  imu_dim: 300
+  keypoint_dim: 300 
+  e4acc_dim: 0
+  bbox_dim: 200
+  ht_dim: 30
+  printer_dim: 30
+  kinect_depth_dim: 0 
+  rs02_depth_dim: 0 
+  resnet1d: false 
+  st_gcn: false
+  resnet: true
+  resnet_cifar: false
+  mbconv: false   
+  num_patches: 50
+  time_step_width: 1000 
+  use_substitute_image: false  
+  use_substitute_emb: false  
+  use_only_one_image: false
+  use_pretrained_resnet: true 
+  add_defect_info: false 
+  use_mean_image: true 
+  use_cnn_feature: false
+  image_size: 64   
+
+dataload:
+  pre_image: false
+  all_image_path: 
+    dir: "${path.openpack.rootdir}/${user.name}/kinect/depth/frames_resize224/${session}"
+    fname: "all_images_size${model.image_size}.npy"
+
+resnet1d:
+  n_layers: 2
+  type: "vit" 
+st_gcn:
+  Ks: 3
+  Kt: 3
+  type: "ori"
+resnet:
+  n_layers: 2
+  type: "vit"  
+resnet_cifar:
+  n_blocks: 1
+mbconv:
+  n_layers: 2
+  type: "gn"  
+
+loss:
+  w_kappa_loss: 0 
+  w_kappa_loss_weightage: "linear" # "linear" or "quadratic"
+  ib_loss: 0
+  focal_loss_gamma: 0 
+  boundary: 0.2
+  inner_boundary: 0.2
+
+train:
+  num_workers: 32
+  batch_size: 16
+  epochs: 200
+  grad_clip_norm: 1.0 
+  label_smoothing: 0
+  ignore_index: true
+  inner_loss: 0.5
+  optimizer:
+    decrease_lr: false 
+    type: "Adam" # Adam RAdam AdamW
+    lr: 0.0001
+    weight_decay: 0.0001
+    lr_scheduler: "ori_warmup" # cosine multi_step ori_warmup 
+    warmup_step: 50
+    cosine_step: 40
+    multistep_gamma: 0.5  
+    multistep_milestones: 
+      - 50
+      - 100
+      - 150
+  dataaug:
+    #TODO update mixup x_keys
+    mixup_alpha: 0.8  
+    mixup_p: 0  
+    shuffle_alpha: 0.2  
+    shuffle_p: 0 
+  debug:
+    batch_size: 64
+    epochs: 5
+
+twostep_pretrain:
+  use: false
+  pretrain_epoch: 50
+
+pre_data_aug: 
+  use: false
+  rotate: 2 
+  shift: 2 
+  flip_p: 0 
+cnn_feature:
+  issue: "R3D50-kinect-width${model.time_step_width}-pretrainTrue"
+
+path:
+  openpack:
+    version: v0.3.1
+    rootdir: ${datarootdir}/${.version}
+  logdir:
+    rootdir: /workspace/logs/${dataset.name}/${model.name}/${issue}
+    model: ${path.logdir.rootdir}/model.pth
+    predict: ${path.logdir.rootdir}/pred/{user}-{session}
+    summary:
+      test: ${path.logdir.rootdir}/summary.csv
+      submission: ${path.logdir.rootdir}/summary_submission.csv
+

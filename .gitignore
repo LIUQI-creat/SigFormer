@@ -1,0 +1,13 @@
+data/
+logs/
+wandb.sh
+git_init.sh
+*.ipynb
+_logs/
+*.pyc
+*.pth
+*.pt
+lightning_logs/
+outputs/
+wandb
+.vscode
