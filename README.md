@@ -48,7 +48,7 @@ In order to get the results in the table below, you need to submit the generated
 Our submitted file is provided in [baiduyun, passcode:ubfo](https://pan.baidu.com/s/1rEhY-KX2OVShseJeek12bw?pwd=ubfo).
 
 ## Main results
-| **OpenPack**  | U0104 | U0108 | U0110 | U0203 | U0204 | U0207 | ALL |
+| **F1 (Macro Average)**  | U0104 | U0108 | U0110 | U0203 | U0204 | U0207 | ALL |
 | ---- |:-------------:| :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | **SigFormer** | 0.971 | 0.969 | 0.960 | 0.966 | 0.903 | 0.923 | 0.958 |
 
